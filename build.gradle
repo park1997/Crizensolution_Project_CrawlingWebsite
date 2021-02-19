@@ -1,0 +1,33 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'hello'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation files('libs/byte-buddy-1.8.15.jar')
+	implementation files('libs/client-combined-3.141.59-sources.jar')
+	implementation files('libs/client-combined-3.141.59.jar')
+	implementation files('libs/commons-exec-1.3.jar')
+	implementation files('libs/guava-25.0-jre.jar')
+	implementation files('libs/json-simple-1.1.1.jar')
+	implementation files('libs/jsoup-1.13.1.jar')
+	implementation files('libs/okhttp-3.11.0.jar')
+	implementation files('libs/okio-1.14.0.jar')
+//	implementation fileTree(dir:'libs',includes: '*.jar')
+}
+
+test {
+	useJUnitPlatform()
+}

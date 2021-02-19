@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <h1>네이버 부동산 Scrapping</h1>
+
+    <form method="POST" action="/">
+        <input type="text" name="id1" th:value="${id2}"/>
+        <input type="submit" value="Click" />
+    </form>
+<!--    <p th:text="${msg}">wait.</p>-->
+    <script th:inline="javascript">var info = [[${msg}]];</script>
+    <p>
+        <table border = "1" width="20%" height="50%" text-align="center">
+        <thead>
+            <tr>
+                <th><script>document.write("단지 명");</script><br></th>
+            </tr>
+        </thead>
+
+        <tbody align="center">
+            <tr>
+                <td><script>document.write(info.단지명);</script><br></td>
+            </tr>
+        </tbody>
+        </table>
+    </p>
+
+    <p>
+        <table border = "1" width="20%" height="50%" text-align="center">
+        <thead>
+        <tr>
+            <th><script>document.write("단지 종류");</script></th>
+        </tr>
+        </thead>
+
+        <tbody align="center">
+        <tr>
+            <td><script>document.write(info.단지종류);</script></td>
+        </tr>
+        </tbody>
+    </table>
+    </p>
+
+    <br>
+
+    <p>
+        <table border = "1" width="90%" text-align="center">
+        <caption><strong>단지정보</strong></caption>
+        <thead>
+        <tr>
+            <script>
+               for(var key in info.단지정보){
+                   document.write("<th>"+key+"</th>");
+               }
+             </script>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <script>
+                for(var key in info.단지정보){
+                   document.write("<td>"+info.단지정보[key]+"</td>");
+               }
+            </script>
+        </tr>
+        </tbody>
+    </table>
+    </p>
+
+    <br>
+
+    <p>
+        <table border = "1" width="80%" text-align="center">
+        <caption><strong>단지 내 면적별 정보</strong></caption>
+        <thead>
+        <tr>
+            <script>
+                var num = "";
+                document.write("<td></td>");
+                for(var key in info.단지내면적별정보){
+                    document.write("<th>"+key+"</th>");
+                    num = key;
+                }
+            </script>
+        </tr>
+        </thead>
+        <tbody align=center>
+        <tr>
+            <th>공시가격</th>
+                <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key].공시가격+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>보유세</th>
+                <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key].보유세+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>현관구조</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key].현관구조+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>관리비</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key].관리비+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>해당면적 세대수</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key].해당면적세대수+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>해당면적 매물</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key].해당면적매물+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>공급/전용</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key]["공급/전용"]+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+            </tr>
+        <tr>
+            <th>방수/욕실수</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info.단지내면적별정보[key]["방수/욕실수"]+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+        </tr>
+        </tbody>
+
+    </table>
+    </p>
+
+    <br>
+
+<p>
+    <table border = "1" width="80%" height="50%" text-align="center">
+        <caption><strong>매매</strong></caption>
+        <thead>
+        <tr>
+            <script>
+                var num = "";
+                document.write("<td></td>");
+                for(var key in info.단지내면적별정보){
+                    document.write("<th>"+key+"</th>");
+                    num = key;
+                }
+            </script>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>상한가</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info["시세/실거래가"][key].매매.상한가+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+        </tr>
+        <tr>
+            <th>하한가</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info["시세/실거래가"][key].매매.하한가+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+        </tr>
+
+        </tbody>
+    </table>
+
+</p>
+<br>
+<p>
+    <table border = "1" width="80%" height="50%" text-align="center">
+        <caption><strong>전세</strong></caption>
+        <thead>
+        <tr>
+            <script>
+                var num = "";
+                document.write("<td></td>");
+                for(var key in info.단지내면적별정보){
+                    document.write("<th>"+key+"</th>");
+                    num = key;
+                }
+            </script>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>상한가</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info["시세/실거래가"][key].전세.상한가+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+        </tr>
+        <tr>
+            <th>하한가</th>
+            <script>
+                    for(var key in info.단지내면적별정보){
+                        try{
+
+                            document.write("<td>"+info["시세/실거래가"][key].전세.하한가+"</td>");
+                        }catch(e){
+                            document.write("<td>"+"X"+"</td>");
+                        }
+                    }
+                </script>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+</p>
+
+<br>
+<p>
+    <table border = "1" width="80%" height="50%" text-align="center">
+    <caption><strong>매물</strong></caption>
+    <thead>
+        <tr>
+            <td></td>
+            <th>층</th>
+            <th>종류</th>
+            <th>면적</th>
+            <th>방향</th>
+            <th>매물 명</th>
+            <th>가격</th>
+        </tr>
+
+    </thead>
+        <tbody>
+        <script>
+                for(var i=0;i<info.매물.length;i++){
+                    document.write("<tr>");
+                    document.write("<td>"+i+"</td>");
+                    document.write("<td>"+info.매물[i].층+"</td>");
+                    document.write("<td>"+info.매물[i].종류+"</td>");
+                    document.write("<td>"+info.매물[i].면적+"</td>");
+                    document.write("<td>"+info.매물[i].방향+"</td>");
+                    document.write("<td>"+info.매물[i].매물명+"</td>");
+                    document.write("<td>"+info.매물[i].가격+"</td>");
+                    document.write("</tr>");
+                }
+            </script>
+        </tbody>
+
+    </table>
+
+</p>
+
+
+</body>
+</html>
