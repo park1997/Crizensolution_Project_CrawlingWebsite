@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @Controller
 public class CrawlingController {
     public String number;
-
+    public JSONObject information;
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("msg", "input number.");
@@ -29,10 +29,12 @@ public class CrawlingController {
     //1525
     @RequestMapping(value="/", method = RequestMethod.POST)
     public String send(@RequestParam("id1")String  number, Model model) throws InterruptedException {
-        model.addAttribute("msg", Crawling(number));
+        information = Crawling(number);
+        model.addAttribute("msg", information);
         model.addAttribute("id2", number);
         return "index";
     }
+
 
 
     // 크롤링 메소드 -> return 으로 json 객체 받음
@@ -437,7 +439,5 @@ public class CrawlingController {
         driver.quit();
 
         return info;
-
     }
-
 }
