@@ -5,8 +5,8 @@
     <title>매물 정보</title>
 </head>
 <body>
-    <h1>네이버 부동산 Scrapping</h1>
-    <a href = "/"><h3>면적별 모아보기</h3></a>
+    <a href="/"><h1>네이버 부동산 Scrapping</h1></a>
+    <a href = "/collecting"><h3>면적별 모아보기</h3></a>
     <form method="POST" action="/">
         <input type="text" name="id1" th:value="${id2}"/>
         <input type="submit" value="Click" />
@@ -14,6 +14,7 @@
 
 <!--    <p th:text="${msg}">wait.</p>-->
     <script th:inline="javascript">var info = [[${msg}]];</script>
+    <br>
     <p>
         <table border = "1" width="20%" height="50%" text-align="center">
         <thead>

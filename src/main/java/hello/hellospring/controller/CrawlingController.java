@@ -34,6 +34,7 @@ public class CrawlingController {
     }
     @GetMapping("/collecting")
     public JSONObject showCollected(Model model) throws InterruptedException{
+        model.addAttribute("msg", information);
         return information;
     }
 

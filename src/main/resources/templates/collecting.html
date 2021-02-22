@@ -9,8 +9,307 @@
     <h1>네이버 부동산 Scrapping</h1>
     <script th:inline ="javascript">var info =[[${msg}]]</script>
     <p>
-        information
-    </p>
+    <table border = "1" width="20%" height="50%" text-align="center">
+        <thead>
+        <tr>
+            <th><script>document.write("단지 명");</script><br></th>
+        </tr>
+        </thead>
 
+        <tbody align="center">
+        <tr>
+            <td><script>document.write(info.단지명);</script><br></td>
+        </tr>
+        </tbody>
+    </table>
+    </p>
+    <br>
+    <p>
+    <table border = "1" width="20%" height="50%" text-align="center">
+        <thead>
+        <tr>
+            <th><script>document.write("단지 종류");</script></th>
+        </tr>
+        </thead>
+
+        <tbody align="center">
+        <tr>
+            <td><script>document.write(info.단지종류);</script></td>
+        </tr>
+        </tbody>
+    </table>
+    </p>
+    <br>
+    <p>
+    <table border = "1" width="90%" text-align="center">
+        <caption><strong>단지정보</strong></caption>
+        <thead>
+        <tr>
+            <script>
+               for(var key in info.단지정보){
+                   document.write("<th>"+key+"</th>");
+               }
+             </script>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <script>
+                for(var key in info.단지정보){
+                   document.write("<td>"+info.단지정보[key]+"</td>");
+               }
+            </script>
+        </tr>
+        </tbody>
+    </table>
+    </p>
+    <script>
+            function List() {
+                 this.listSize = 0;
+                 this.pos = 0;
+                 this.dataStore = [];
+                 this.clear = clear;
+                 this.find = find;
+                 this.toString = toString;
+                 this.insert = insert;
+                 this.append = append;
+                 this.remove = remove;
+                 this.front = front;
+                 this.end = end;
+                 this.prev = prev;
+                 this.next = next;
+                 this.length = length;
+                 this.currPos = currPos;
+                 this.moveTo = moveTo;
+                 this.getElement = getElement;
+                 this.contains = contains;
+                 this.get = get;
+            }
+
+            function append(element) {
+                this.dataStore[this.listSize++] = element;
+            }
+
+
+            function find(element) {
+                for(var i=0; i<this.dataStore.length; i++) {
+                    if(this.dataStore[i] == element) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+
+            function remove(element){
+                var foundAt = this.find(element);
+
+                if(foundAt > -1) {
+                    this.dataStore.splice(foundAt, 1);
+                    --this.listSize;
+                    return true;
+                }
+                return false;
+            }
+
+
+            function length(){
+                return this.listSize;
+            }
+
+
+            function toString() {
+                return "["+this.dataStore+"]";
+            }
+
+
+
+            function insert(element, after){
+                var insertPos = this.find(after);
+                if(insertPos > -1) {
+                    this.dataStore.splice(insertPos+1, 0, element);
+                    ++this.listSize;
+                    return true;
+                }
+                return false;
+            }
+
+
+
+            function clear() {
+                delete this.dataStore;
+                this.dataStore.length = 0;
+                this.listSize = 0;
+            }
+
+
+            function contains(element) {
+                for(var i=0;i<this.dataStore.length;i++) {
+                    if(this.dataStore[i] == element) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+
+            function front() {
+                this.pos = 0;
+            }
+
+
+            function end() {
+                this.pos = this.listSize-1;
+            }
+
+
+            function prev() {
+                if(this.pos > 0)
+                    --this.pos;
+            }
+
+
+            function next() {
+                if(this.pos < this.listSize-1) {
+                    ++this.pos;
+                }
+            }
+
+
+            function currPos() {
+                return this.pos;
+            }
+
+
+            function moveTo(position) {
+                this.pos = position;
+            }
+
+
+            function getElement(){
+                return this.dataStore[this.pos];
+            }
+
+
+            function get(position){
+                return this.dataStore[position];
+            }
+
+                var sizes = new List();
+                var num = "";
+                document.write("<td></td>");
+                for(var key in info.단지내면적별정보){
+                    sizes.append(key);
+                    num = key;
+                }
+            </script>
+    <br>
+
+    <script>
+        for(var i =0; i<sizes.length();i++){
+            document.write("<p>");
+            document.write("<table border = '1' width ='80%' text-align = 'center'>");
+            document.write("<caption><strong>"+sizes.get(i)+"정보</strong></caption>");
+            document.write("<thead>");
+            document.write("<tr>");
+            for(var key in info.단지내면적별정보[sizes.get(i)]){
+                document.write("<th>"+key+"</th>");
+            }
+            document.write("<th>매매 상한가</th>");
+            document.write("<th>매매 하한가</th>");
+            document.write("<th>전세 상한가</th>");
+            document.write("<th>전세 하한가</th>");
+
+            document.write("</tr>");
+            document.write("</thead>");
+
+            document.write("<tbody align=center>");
+
+            document.write("<tr>");
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)].공시가격+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)].보유세+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)].현관구조+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)].관리비+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)].해당면적세대수+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)].해당면적매물+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)]['공급/전용']+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+            try{
+                document.write("<td>"+info.단지내면적별정보[sizes.get(i)]['방수/욕실수']+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            try{
+                document.write("<td>"+info['시세/실거래가'][sizes.get(i)].매매.상한가+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            try{
+                document.write("<td>"+info['시세/실거래가'][sizes.get(i)].매매.하한가+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            try{
+                document.write("<td>"+info['시세/실거래가'][sizes.get(i)].전세.상한가+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            try{
+                document.write("<td>"+info['시세/실거래가'][sizes.get(i)].전세.하한가+"</td>");
+            }catch(e){
+                document.write("<td>"+"X"+"</td>");
+            }
+
+            document.write("</tr>");
+
+
+            document.write("</tbody>");
+            document.write("</table>");
+            document.write("</p>");
+            document.write("<br>");
+        }
+
+    </script>
 </body>
 </html>
