@@ -11,9 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -33,6 +31,10 @@ public class CrawlingController {
         model.addAttribute("msg", information);
         model.addAttribute("id2", number);
         return "index";
+    }
+    @GetMapping("/collecting")
+    public JSONObject showCollected(Model model) throws InterruptedException{
+        return information;
     }
 
 
