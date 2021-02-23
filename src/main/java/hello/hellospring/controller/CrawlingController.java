@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 @Controller
 public class CrawlingController {
-    public String number;
     public JSONObject information;
     @RequestMapping("/")
     public String index(Model model){
@@ -37,12 +36,8 @@ public class CrawlingController {
         model.addAttribute("msg", information);
         return information;
     }
-
-
-
     // 크롤링 메소드 -> return 으로 json 객체 받음
     public JSONObject Crawling(String number) throws InterruptedException {
-
         int interval =1000;
 
         ChromeOptions options = new ChromeOptions();
@@ -52,7 +47,6 @@ public class CrawlingController {
         options.addArguments("--disable-gpu");
         options.addArguments("lang=ko_KR");
         options.addArguments("window-size=1920x1080"); // 이거 안해주면 headless 때문에 안되고 useragent 넣어줘도 안됨
-
 
 
         ChromeDriver driver = new ChromeDriver(options);
@@ -170,7 +164,7 @@ public class CrawlingController {
             doc = Jsoup.parse(driver.getPageSource());
 
 
-            // 공급/전용, 방수/욕실수, 해다연적 세대수.. 등 에 대한 정보 table
+            // 공급/전용, 방수/욕실수, 해당면적 세대수.. 등 에 대한 정보 table
             Elements size_infos_table = doc.select("div.detail_box--floor_plan table.info_table_wrap tr.info_table_item");
             // rowspan = 2 인 경우를 구별하기위한 boolean
             boolean checking_boolean = true;
