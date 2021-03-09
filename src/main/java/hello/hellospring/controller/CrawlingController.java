@@ -6,14 +6,20 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+
+
 
 @Controller
 public class CrawlingController {
@@ -50,6 +56,7 @@ public class CrawlingController {
 
 
         ChromeDriver driver = new ChromeDriver(options);
+
         // 정체 정보가 들어갈 Json
         JSONObject info = new JSONObject();
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -71,20 +78,24 @@ public class CrawlingController {
         // 단지 종류 : 아파트 , 오피스텔 ..
         Elements complex_type = doc.select("span.label--category");
         info.put("단지종류", complex_type.get(0).text());
-
+        WebDriverWait wait = new WebDriverWait(driver, 3);
 
         String complex_info = "";
         // 혹시나 발생할 버튼클릭에 있어서의 예외처리
         try{
             // "단지 정보" 라는 글자 저장
             complex_info = driver.findElementByClassName("complex_link").getText();
+
             // 단지 정보 클릭!
             driver.findElementByClassName("complex_link").click();
             // 혹시 모를 로딩으로 인해 1초 쉬어줌
-            Thread.sleep(interval);
+//            Thread.sleep(interval);
+
         }catch(Exception e){
             e.printStackTrace();
         }
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("tab0"))).click();
 
         // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
         doc = Jsoup.parse(driver.getPageSource());
@@ -245,14 +256,14 @@ public class CrawlingController {
 
 
         // 로딩으로 인해 오류 방지를 위한 interval
-        Thread.sleep(interval);
+//        Thread.sleep(interval);
 
         // "시세/실거래가"
         String actual_transaction = doc.select("button.complex_link").get(1).text();
 
         // 시세/실거래가 클릭
         driver.findElementByXPath("//*[@id=\"summaryInfo\"]/div[2]/div[2]/button[2]").click();
-
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"summaryInfo\"]/div[2]/div[2]/button[2]"))).click();
         // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
         doc = Jsoup.parse(driver.getPageSource());
 
@@ -272,7 +283,9 @@ public class CrawlingController {
                 // 시세/실거래가 면적 for loop를 통해 클릭
                 driver.findElementByLinkText(width_info.get(num).text()).click();
                 // 페이지 로딩으로 인하여 0.4초간 쉬어줌
-                Thread.sleep(400);
+//                Thread.sleep(400);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(width_info.get(num).text()))).click();
+
                 // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
                 doc = Jsoup.parse(driver.getPageSource());
 
@@ -283,8 +296,8 @@ public class CrawlingController {
                     driver.findElementById(id).click();
 
                     // 페이지 로딩으로 인하여 0.4초 쉬어줌
-                    Thread.sleep(400);
-
+//                    Thread.sleep(400);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id))).click();
                     // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
                     doc = Jsoup.parse(driver.getPageSource());
 
@@ -363,7 +376,8 @@ public class CrawlingController {
 
         // 동일 매물 묶기
         driver.findElementByClassName("address_filter").click();
-        Thread.sleep(interval);
+//        Thread.sleep(interval);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("address_filter"))).click();
         // 매물 크롤링
         // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
         doc = Jsoup.parse(driver.getPageSource());
@@ -397,7 +411,7 @@ public class CrawlingController {
 //                System.out.println("total count : " + result);
                 isEnd = false;
             }
-            Thread.sleep(400);
+            Thread.sleep(100);
         }
 
         // soup 업데이트 !
