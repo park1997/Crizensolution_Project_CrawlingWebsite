@@ -7,8 +7,8 @@
 Selenium의 문제인 시간이 너무 오래걸린다는 것을 해결하기위해 코드를 재정비 하였습니다.
 
 단지 코드 1525의 경우 21초 -> 15초 로 약 6초 를 절약하는데에 성공하였습니다.
-절약 방법으로는 최대한 Selenium을 이용한 웹 구동을 줄이고 Jsoup으로 받아서 크롤링하는식으로 바꾸었고, Thread.sleep()을 사용하지 않고, 다음 대상이 나타날떄까지만 기다릴수있도록 
-wait.until(ExpectedConditions.presenceOfElementLocated(By.id(""))).click(); -> 를 이용하였습니다.
+절약 방법의 첫번째로는, 최대한 Selenium을 이용한 웹 구동을 줄이고 Jsoup으로 받아서 크롤링하는식으로 바꾸었습니다.
+두번째 방법으로는 , Thread.sleep()을 사용하지 않고, 다음 대상이 나타날때까지만 기다릴수있도록 wait.until(ExpectedConditions.presenceOfElementLocated(By.id(""))).click(); -> 를 이용하였습니다.
 
 최종적으로 약 30%의 속도향상을 하였습니다.
 
