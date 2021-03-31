@@ -1,5 +1,6 @@
 # CrizenSolution_CrawlingWebsite
 <소개>
+
 크리젠솔루션 인턴기간중에 완료했던 프로젝트입니다.
 동적웹페이지인 네이버부동산을 Selenium과 Jsoup을 이용하여 필요한 정보를 크롤링하여 Json 형태로 데이터를 만들었습니다
 
