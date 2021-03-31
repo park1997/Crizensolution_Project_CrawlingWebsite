@@ -1,8 +1,15 @@
 # CrizenSolution_CrawlingWebsite
+<소개>
 크리젠솔루션 인턴기간중에 완료했던 프로젝트입니다.
-동적웹페이지인 네이버부동산을 Selenium과 Jsoup을 이용하여 필요한 정보를 크롤링하여 동적테이블로 정리하여 웹으로 로컬에 구현했습니다.
-동적테이블은 html에서 javascript로 구현하였습니다.
+동적웹페이지인 네이버부동산을 Selenium과 Jsoup을 이용하여 필요한 정보를 크롤링하여 Json 형태로 데이터를 만들었습니다
 
+Spring boot 를 이용하여 백엔드 개발을 진행하였습니다.
+
+동적테이블을 만들기위해 HTML,JavaScript를 이용하여 프론트앤드 개발을 진행 하였습니다.
+데이터들을 동적테이블로 정리하여 웹으로 로컬에 구현했습니다.
+
+
+<시간 절약>
 
 Selenium의 문제인 시간이 너무 오래걸린다는 것을 해결하기위해 코드를 재정비 하였습니다.
 
@@ -12,8 +19,6 @@ Selenium의 문제인 시간이 너무 오래걸린다는 것을 해결하기위
 두번째 방법으로는 , Thread.sleep()을 사용하지 않고, 다음 대상이 나타날때까지만 기다릴수있도록 wait.until(ExpectedConditions.presenceOfElementLocated(By.id(""))).click(); -> 를 이용하였습니다.
 
 최종적으로 약 30%의 속도향상을 하였습니다.
-
-
 
 
 
