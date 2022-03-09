@@ -110,19 +110,16 @@ public class CrawlingController {
 
         // 단지 정보 테이블 소스코드
         Elements complex_infos = doc.select("div.detail_box--complex table.info_table_wrap tr.info_table_item");
-//        System.out.println(complex_infos.size());
 
         // for loop 을 이용하여 단지 정보 추출
         for(Element detail_complex_info : complex_infos){
             // 단지 정보 key(세대수, 저/최고층, 사용승인일, 총주차대수, 용적률, 건폐율, ...)
             for(Element detail : detail_complex_info.select("th.table_th")){
                 key_temp.add(detail.text().replace("\\",""));
-//                System.out.println(detail.text());
             }
             // 단지 정보 value
             for(Element detail : detail_complex_info.select("td.table_td")){
                 value_temp.add(detail.text());
-//                System.out.println(detail.text());
             }
         }
 
@@ -255,9 +252,6 @@ public class CrawlingController {
         info.put(width_info_name,small_info);
 
 
-        // 로딩으로 인해 오류 방지를 위한 interval
-//        Thread.sleep(interval);
-
         // "시세/실거래가"
         String actual_transaction = doc.select("button.complex_link").get(1).text();
 
@@ -282,8 +276,6 @@ public class CrawlingController {
 
                 // 시세/실거래가 면적 for loop를 통해 클릭
                 driver.findElementByLinkText(width_info.get(num).text()).click();
-                // 페이지 로딩으로 인하여 0.4초간 쉬어줌
-//                Thread.sleep(400);
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(width_info.get(num).text()))).click();
 
                 // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
@@ -295,8 +287,6 @@ public class CrawlingController {
 
                     driver.findElementById(id).click();
 
-                    // 페이지 로딩으로 인하여 0.4초 쉬어줌
-//                    Thread.sleep(400);
                     wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id))).click();
                     // 현재 페이지의 소스코드 가져오기(페이지 소스 업데이트)
                     doc = Jsoup.parse(driver.getPageSource());
@@ -408,7 +398,6 @@ public class CrawlingController {
         while(isEnd) {
             Object result = js.executeScript("return window.scrollToBottom()");
             if (result != null) {
-//                System.out.println("total count : " + result);
                 isEnd = false;
             }
             Thread.sleep(100);
